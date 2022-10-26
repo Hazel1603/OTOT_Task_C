@@ -41,12 +41,3 @@ module.exports = {
     User,
     JwtTokenStorage
 }
-
-// module.exports = {
-//     ROLE: ROLE,
-//     users: [
-//         { id: 1, name: 'Hazel', role: ROLE.ADMIN },
-//         { id: 2, name: 'Jude', role: ROLE.BASIC },
-//         { id: 3, name: 'Irene', role: ROLE.BASIC }
-//     ]
-// }

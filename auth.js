@@ -21,7 +21,7 @@ function authUser(req, res, next) {
                 }
 
                 if (entry[0].jwtToken != token) {
-                    res.status(403)
+                    res.status(401)
                     return res.send('You are using a wrong token.')
                 } else {
                     next()

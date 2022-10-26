@@ -34,17 +34,9 @@ User.deleteMany({}, function(err) {
     }
 });
 
-app.get("/welcome", authUser, (req, res) => {
-    res.json({ message: "Welcome!" });
-});
-
-app.get("/admin", authUser, authRole(ROLE.ADMIN), (req, res) => {
-    res.json({ message: "Welcome, Admin." })
-})
-
 app.post('/login', (req, res) => {
     const userId = parseInt(req.query.userId)
-    if (userId) {
+    if (userId && userId <= 3) {
         const accessToken = jwt.sign(userId, ACCESS_TOKEN)
         const jwtTokenStorageEntry = new JwtTokenStorage({id: userId, jwtToken: accessToken})
         jwtTokenStorageEntry.save(function(err){
@@ -54,9 +46,17 @@ app.post('/login', (req, res) => {
         });
         res.json({ accessToken: accessToken })
     } else {
-        res.status(200)
-        res.send('user id not present')
+        res.status(400)
+        res.send('User id not present')
     }
+})
+
+app.get("/welcome", authUser, (req, res) => {
+    res.json({ message: "Welcome!" });
+});
+
+app.get("/admin", authUser, authRole(ROLE.ADMIN), (req, res) => {
+    res.json({ message: "Welcome, Admin." })
 })
 
 app.listen(PORT, () => {
